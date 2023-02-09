@@ -1,0 +1,126 @@
+Tweet Schema
+{
+  id: string, //트윗 아이디
+  text: string, //트윗 텍스트(바디)
+  createdAt: Date //트윗 생성 날짜
+  name: string, //사용자 이름
+  username: string, //사용자 닉네임 (아이디)
+  url: string (optional) //사용자 프로필 사진 URL
+}
+
+GET /tweets
+  Get all tweets
+  Success: Response 200
+  Fail: Response xxx
+  Return:
+    {
+      [tweet, tweet, ...]
+    }
+
+GET /tweets?username=:username
+  Get tweets from userid
+  Success: Response 200
+  Fail: Response xxxx
+  Return:
+    {
+      [tweet, tweet, ...]
+    }
+
+GET /tweets/:id
+  Get tweet by id
+  Success: Response 200
+  Fail: Response xxx
+  Return:
+    {
+      tweet
+    }
+
+POST /tweets
+  Post single tweet
+  Success: Response 201
+  Req Body:
+    {
+      text,
+      name, // to be removed after implementing login
+      username, // to be removed after implementing login
+      url, (optional) // to be removed after implementing login
+    }
+  Return: single tweet
+    {
+      tweet
+    }
+
+PUT /tweets/:id
+  Updates single tweet
+  Success: 200
+  Req Body:
+    {
+      text,
+    }
+  Return:
+    {
+      tweet
+    }
+
+DELETE /tweets/:tweetid
+  Deletes single tweet
+  Success: 204
+  Return:
+    Null
+
+
+
+
+Login
+
+User Schema
+{
+  id: string, //user unique id in database
+  username: string,
+  password: string, //bcrypt로 저장
+  //createdAt: Date //트윗 생성 날짜
+  name: string, //사용자 이름
+  email: string,
+  url: string (optional) //사용자 프로필 사진 URL
+}
+
+POST /auth/login
+  Login as user
+  Success: Response 200
+  Req Body:
+    {
+      username,
+      password
+    }
+  Fail: Response xxx
+  Return:
+    {
+      token,
+      username
+    }
+
+POST /auth/signup
+  Create new account
+  Success: Response 201
+  Req Body:
+    {
+      username: string,
+      password: string, //bcrypt로 저장
+      //createdAt: Date //트윗 생성 날짜
+      name: string, //사용자 이름
+      email: string,
+      url: string (optional) //사용자 프로필 사진 URL
+    }
+  Return: token, username
+    {
+      token, //JWT token
+      username
+    }
+
+GET /auth/me
+  Checks token validity
+  Return:
+    {
+      token,
+      username
+    }
