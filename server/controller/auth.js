@@ -37,12 +37,11 @@ export async function postLogin (req, res) {
 
 export async function getMe (req, res) {
   // //isAuth 확인 통과
-  // const username = await userRepository.findByUsername(req.userUsername);
-  // // if(!username) {
-  // //   return res.status(404).json({message:"User Not Found"})
-  // // }
-  // res.status(200).json({ token: req.token, username })
-  res.sendStatus(200)
+  const username = await userRepository.findByUsername(req.userUsername);
+  if(!username) {
+    return res.status(404).json({message:"User Not Found"})
+  }
+  res.status(200).json({ token: req.token, username })
 }
 
 function createJwtToken(username) {

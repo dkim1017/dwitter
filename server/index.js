@@ -11,10 +11,14 @@ import authRouter from './router/auth.js'
 
 const app = express();
 
+const corsOption = {
+  origin: config.cors.allowedOrigin,
+  optionsSuccessStatus: 200,
+}
 //app.use 는 순차적 진행
 app.use(express.json()); // REST API -> Body
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOption));
 app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: false })); // HTML Form -> Body parsing
 
@@ -31,6 +35,6 @@ app.use((error, req, res, next) => {
 
 console.log("SERVER ENV PORT: ", config.host.port)
 connectDB().then(() => {
-  console.log('init!');
-  app.listen(config.host.port)
+  console.log(`Server Started... ${new Date()}`);
+  app.listen(config.port)
 }).catch(error => console.log('error'))
