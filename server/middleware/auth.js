@@ -29,7 +29,7 @@ export function isAuth(req, res, next) {
         return res.status(401).json(AUTH_ERROR)
       }
       req.username = user.username
-      // req.token = token
+      req.token = token
       next()
     }
   )

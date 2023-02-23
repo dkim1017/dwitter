@@ -18,8 +18,6 @@ router.get('/:id', isAuth, tweetController.getTweetsById)
 //POST /tweets
 router.post('/',
   body('text').isLength({min: 1}),
-  body('name').isAlpha(),
-  body('username').trim().isAlphanumeric(),
   validator,
   isAuth,
   tweetController.postTweet)
