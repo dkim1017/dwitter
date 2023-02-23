@@ -29,8 +29,9 @@ export async function postTweet (req, res) {
 }
 
 export async function editTweet (req, res) {
-  const id = req.params.id
+  const id = req.params
   const text = req.body.text
+  console.log("req id: ", id)
   const tweet = await tweetRepository.updateTweet(id, text)
   if(tweet) {
     res.status(200).json(tweet)
@@ -41,6 +42,7 @@ export async function editTweet (req, res) {
 
 export async function deleteTweet(req, res) {
   const id = req.params.id
+  console.log("IDIDID: ", id)
   await tweetRepository.remove(id)
   res.sendStatus(204)
 }
